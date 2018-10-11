@@ -1,0 +1,32 @@
+﻿@charset "utf-8";
+@import url("/css/base.css");
+
+ /*탭영역 */
+a:hover{text-decoration:none;}
+.tab_bor {float:left; margin:0; padding:0; width:100%; height:26px;}
+
+.tab_wrap { float:left; padding:0px; width:100%; height:26px; border-bottom:1px solid #000000; font-family:돋움; font-size:9pt; color:#878787; }
+
+.tab01{float:left; margin-top:4px; margin-left:18px; padding:0px; width:1060px; height:22px;  }
+.tab01 ul{float:left; margin:0px; padding:0px; list-style:none; width:1060px; height:22px;}
+.tab01 ul li{float:left; margin:0px; text-align:left; width:1060px; height:22px;}
+.tab01 a{text-decoration:none; font-family:돋움; color:#878787; text-align:center;}
+
+.cell01 { width:120px; height:20px; border:1px solid #c7c7c7; border-bottom-style:none; background-color:#f6f6f6; text-align:center;}
+
+.tab02 {float:right; margin-top:4px; width:180px; height:22px; text-align:right;}
+.tab02 ul{float:right; margin:0px; padding:0px; list-style:none; text-align:right; width:180px; height:22px;}
+.tab02 ul li{float:right; margin:0px; padding-top:5px;  text-align:right; width:90px; height:17px;}
+.tab02 a{text-decoration:none; }
+
+
+/* 네비게이션 영역 */
+#nav{ float:left; left:0; top:49px; margin:0px; padding:0px; width:100% ; height:32px; background-image:url("/board/img/add/gnb.png"); background-repeat:repeat-x; }
+.navi_bul { float:left; margin:0px; padding:12px 0px 0px 0px; width:2px; height:35px; }
+.gnb_bg{float:left; width:100%; height:32px; background-image:url("/board/img/add/gnb.png"); background-repeat:repeat-x; }
+
+
+
+/*퀵메뉴 */
+#quick_menu_wrap {float:left; width:21px; height:100%; margin:0px; padding:0px; background-color:#b9b9b9;}
+#quick_menu{ z-index:2; top:0px; left:0px; width:21px; height:110px; margin:0px; padding:0px; background-color:#b9b9b9;}

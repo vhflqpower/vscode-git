@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./favicon.ico">
+    <title>PMS</title>
+    <!-- Bootstrap core CSS -->
+    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+
+
+	<script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
+
+	<style>
+	.footer { position:fixed; bottom:0; left:0; width:100%; height:37px; z-index:2000; background-color: #ccc;  clear: left;}
+	</style>
+  </head>
+  <body>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	 <script>
+	  $(function() {
+	    $( ".row_position" ).sortable({
+	        delay: 150,
+	        change: function() {
+	    var selectedLanguage = new Array();
+	    $('.row_position>tr').each(function() {
+	    selectedLanguage.push($(this).attr("id"));
+	    });
+	    document.getElementById("row_order").value = selectedLanguage;
+	    }
+	   
+	    });
+	  });
+	  
+	  function save() { 
+	    var data = new Array();
+	    $('.row_position tr').each(function() {
+	       data.push($(this).attr("id"));
+	    });
+	    
+	    $.ajax({
+	        url:"./issu_sort_proc.php",
+	        type:'post',
+	        data:{position:data},
+	        success:function(){
+		  alert('your change successfully saved');
+	        }
+	    })
+	  }
+	  </script>
+	  <style>
+	  .row_position{
+	  cursor:move
+	  }
+	  </style>
+
+	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./main.php">M.T.A 엠티에이</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+			 <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PROJECT<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="./base_config.php">기본설정</a></li>
+                </ul>
+              </li>
+			 <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">커뮤니티<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="./base_config.php">기본설정</a></li>
+                </ul>
+              </li>
+			 <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CONFIG <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="./base_config.php">기본설정</a></li>
+                  <li><a href="./cash_list.php">회비내역</a></li>
+                  <li><a href="./mileage_list.php">마일리지내역</a></li>
+                  <li><a href="./login_list.php">로그인내역</a></li>
+                  <li><a href="../login/logout.php">로그아웃</a></li>
+                </ul>
+              </li>
+            <li><a href="/spt/" target="_blank">SPT</a>
+			</li>
+           <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">LINKS <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+	        <li><a href="http://gw.commercelab.co.kr/groupware/login.php?mode=logout" target="_blank">그룹웨어</a></li>                
+	        <li><a href="http://cs.commercelab.co.kr/login_page.php?return=view.php%3Fid%3D1401" target="_blank" >맨티스</a></li>            
+                  <li><a href="https://github.com/" target="_blank">GIT HUB(깃허브)</a></li>
+                  <li><a href="" target="_blank">비즈톡(카카오)</a></li>
+                  <li><a href="" target="_blank">PG사</a></li>
+                  <li><a href="" target="_blank">택배사</a></li>
+                  <li><a href="/erd/index.php?sub_mid=5&sub_sid=8" target="_blank">LINUX</a></li>
+                  <li><a href="/erd/index.php?sub_mid=5&sub_sid=4" target="_blank">PHP</a></li>
+                  <li><a href="/erd/index.php?sub_mid=5&sub_sid=5" target="_blank">JQUERY</a></li>
+                </ul>
+              </li>
+          </ul>
+
+              <!-- <div class="pull-right"> -->
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,박성주					<span class='badge'></span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./memo.php" target="_blank" id="ol_after_memo" class="win_memo"><i class="icon-cog"></i>쪽지<span class='badge'></span></a></li>
+                            <li><a href="./mypage.php">MYPAGE</a></li>
+                            <li class="divider"></li>
+                            <li><a href="./logout.php"><i class="icon-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              <!-- </div> -->
+
+
+          <form class="navbar-form navbar-right" name="allsearch" method="POST" action="./board_list.php?part=board" target="_blank">
+          <div id="hd" style=";">
+		   <input type="text"  class="form-control" name="search_keyword" id="search_keyword" value="" placeholder="Search...">
+           <!-- <button type="submit" class="btn btn-success" id="">검색</button> -->
+		</div>
+	</form>
+
+        </div>
+      </div>
+    </nav>
+
+<script>
+
+</script>
+
+ <div class="container-fluid">
+	
+     <div class="row">
+	<div class="sidebar">        
+          <div class="list-group">
+            <a href="./main.php" class="list-group-item "><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> 메인페이지</a>
+
+	<a href="./issu_list.php?part=issu&bo_table=issu" class="list-group-item active"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 이슈트래킹 <!-- <span class="badge">14</span> --></a>
+	<a href="./project_list.php?part=project&bo_table=project" class="list-group-item "><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 프로젝트 <!-- <span class="badge">14</span> --></a>
+	<a href="./manager_list.php?part=manager&bo_table=manager" class="list-group-item "><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 업체담당 <!-- <span class="badge">14</span> --></a>
+	<a href="./account_list.php?part=account&bo_table=account" class="list-group-item "><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 계정목록 <!-- <span class="badge">14</span> --></a>
+	<a href="./data_list.php?part=data&bo_table=data" class="list-group-item "><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> 자료실 <!-- <span class="badge">14</span> --></a>
+	<a href="./board_list.php?part=info&bo_table=info" class="list-group-item "><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 정보관리 <!-- <span class="badge">14</span> --></a>
+
+	<a href="./board_list.php?part=bugreport&bo_table=bugreport" class="list-group-item "><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 버그&제안</a>
+
+	</div>
+        </div>
+       <div class="main"><!-- col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main -->
+          <!-- <h1 class="page-header">Dashboard</h1> -->
+              <h2 class="sub-header">이슈목록</h2>
+
+          <div class="table-responsive">
+
+
+			
+	<form name="form1" method="get">
+	<input type="hidden" name="status" value="">
+	<!-- <input type="hidden" name="pj_id" value=""> -->
+
+	<div class="btn-group" role="group" aria-label="...">
+		  <button type="button" class="btn btn-default "  onclick="location.href='./issu_list.php?status=1&pj_id='"><font color=#FF8000>접수중</font></button>
+		  <button type="button" class="btn btn-default "  onclick="location.href='./issu_list.php?status=2&pj_id='"><font color=#0000ff>분석중</font></button>
+		  <button type="button" class="btn btn-default "  onclick="location.href='./issu_list.php?status=3&pj_id='"><font color=#ff0000>처리중</font></button>
+		  <button type="button" class="btn btn-default "  onclick="location.href='./issu_list.php?status=4&pj_id='"><font color=#ffa500>테스트중</font></button>
+		  <button type="button" class="btn btn-default "  onclick="location.href='./issu_list.php?status=5&pj_id='"><font color=#00000>완료</font></button>
+	
+	</div>
+
+	<select class=" project" name="pj_id" id="pj_id" onchange="document.form1.submit();" style="width:150px;height:32px;border-radius:4px;">
+		  <option value="">프로젝트선택</option>			
+		 
+		  <option value="2" >패션그룹형지</option>
+		   
+		  <option value="3" >게스프로젝트</option>
+		   
+		  <option value="5" >베내통 프로젝트</option>
+		   
+		  <option value="6" >세정프로젝트</option>
+		   
+		  <option value="7" >에어워크</option>
+		   
+		  <option value="8" >신원몰</option>
+		   
+		  <option value="10" >기프츄</option>
+		   
+		  <option value="11" >하림프로젝트</option>
+		   
+		  <option value="12" >다우데이터</option>
+		   
+		  <option value="13" >커머스랩</option>
+		   
+		  <option value="14" >프로젝트매니저</option>
+		   
+		  <option value="16" >데코엔이</option>
+		   
+		  <option value="17" >스마일서브</option>
+		   
+		  <option value="18" >KD 운송그룹ERP</option>
+		   
+		  <option value="19" >jayjun</option>
+		  		</select>
+
+	<div class="form-group pull-right" >
+	   <input type="text" id="search_value" value="" class="form-control" placeholder="Search" onkeyup="getresult('/admin/ajax/ajax_board_row_data.php?bo_table=issu&part=')">
+	   <!-- <button type="button" id="btn_search" class="btn btn-info">검색하기</button> -->
+	 </div> 
+			
+			</form>
+
+                <section>
+                    <table class="table table-sortable"  class="table">
+					<col width="10%">
+					<col width="5%">
+					<col width="65%">
+					<col width="10%">
+					<col width="5%">
+					<col width="5%">
+                        <thead>
+                        <tr>
+                            <th>프로젝트명</th>
+                            <th>담당자</th>
+                            <th>제목</th>
+                            <th>DATE</th>
+                            <th>수정</th>
+                            <th>MOVE</th>
+                        </tr>
+                        </thead>
+                        <tbody   class="row_position" >
+                 
+
+
+	 <tr id="76" >
+                            <td>기프츄</td>
+			<td><strong>박성주</strong></td>
+                            <td>1)<a href="./issu_view.php?is_id=76&part=issu"><strong>기프츄 잔여개발</strong></a>
+				<a href="#1" id="issu_log_btn_76">[내역보기]
+			
+					<div class="progress">
+					  <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+						<span class="sr-only">80% Complete (danger)</span>
+					  </div>
+					  </div>	
+					  						</td>
+                            <td>07.11</td>
+                            <td><font color=#ff0000>처리중</font></td>
+                            <td><span class="glyphicon glyphicon-move"></span>
+							
+						<script>
+
+							$("#issu_log_btn_76").on("click", function(){
+								cw=screen.availWidth;     //화면 넓이
+								ch=screen.availHeight;    //화면 높이
+
+								sw=1024;    //띄울 창의 넓이
+								sh=780;    //띄울 창의 높이
+
+								ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+								mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+								 window.open('./issu_his_list.php?is_id=76','popup_window','width='+sw+',height='+sh+',top=0,left='+ml+',resizable=no,scrollbars=yes');
+							});
+
+
+						</script>
+							
+							
+							</td>
+                        </tr>
+
+	 <tr id="45" >
+                            <td>기프츄</td>
+			<td><strong>박성주</strong></td>
+                            <td>2)<a href="./issu_view.php?is_id=45&part=issu"><strong>포인트 프로세스 반영</strong></a>
+				<a href="#1" id="issu_log_btn_45">[내역보기]
+			
+					<div class="progress">
+					  <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+						<span class="sr-only">80% Complete (danger)</span>
+					  </div>
+					  </div>	
+					  						</td>
+                            <td>07.10</td>
+                            <td><font color=#ff0000>처리중</font></td>
+                            <td><span class="glyphicon glyphicon-move"></span>
+							
+						<script>
+
+							$("#issu_log_btn_45").on("click", function(){
+								cw=screen.availWidth;     //화면 넓이
+								ch=screen.availHeight;    //화면 높이
+
+								sw=1024;    //띄울 창의 넓이
+								sh=780;    //띄울 창의 높이
+
+								ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+								mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+								 window.open('./issu_his_list.php?is_id=45','popup_window','width='+sw+',height='+sh+',top=0,left='+ml+',resizable=no,scrollbars=yes');
+							});
+
+
+						</script>
+							
+							
+							</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </section>
+
+		<div style="float:left;height:50px;">
+			<button type="button" class="btn btn-primary btn-sm" onclick="location.href='./issu_write.php?part=account'">
+			  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>등록하기
+			</button>
+
+			<input type="submit" class="btn btn-info btn-sm" value="정렬저장"   onClick="save();" />
+			<input type="button" class="btn btn-default btn-sm" value="이슈내역보기"   onClick="location.href='./issu_his_list_search.php?part=issu';" />
+         </div>
+
+
+
+		<!-- <div align="center">
+			<div class="pagination" ></div>
+		</div> -->
+
+          </div> 
+		
+		  
+		  <!-- table-responsive -->
+       
+	 </div><!--col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main -->
+
+      </div>    <!-- row -->
+   </div>  <!-- container-fluid -->
+
+
+   <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer> 
+
+
+<!-- Button trigger modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">DIARY INFO</h4>
+      </div>
+      <div class="modal-body">
+	<!-- <form name="frm1" method="post"> -->
+			<form name="inputForm" id="inputForm" class="searchForm">
+			<input type="hidden" name="wr_id" id="wr_id" value="">
+	<!-- table start -->
+		<table  class="table table-bordered table-hover">
+		<col width="20%">
+		<col width="80%">
+		<tr>
+		<th>DATE</th>
+		<td><input type="text" id="wr_date" name="wr_date" style="width:30%;" ></td>
+		</tr>
+		<tr>
+		<th>제목</th>
+		<td><input type="text" id="wr_subject" name="wr_subject" style="width:100%;" >
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+		<textarea id="wr_content" name="wr_content" style="width:100%;height:200px;"></textarea>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+<!-- table end -->
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"  id ="btn_absent_close" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id ="btn_absent" onclick="mbSubmit()">저장하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal -->
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+</script>
+
+
+<script>
+
+</script>
+
+
+
+	<script src="./js/jquery.sortable.js"></script> 
+	
+	
+	<script>
+
+
+	</script>
+
+
+
+
+    <script src="./dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+  </body>
+</html>

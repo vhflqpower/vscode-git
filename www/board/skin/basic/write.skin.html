@@ -1,0 +1,310 @@
+<?
+	include_once("./_common.php");
+
+
+
+?>
+
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TAGINTAG 통합관리자</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  media="all" />
+	<link rel="stylesheet" type="text/css" href="../css/doc.css"  media="all" />
+	<link rel="stylesheet" type="text/css" href="../css/common.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="../main.css" media="all" />
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../login.js"></script>
+	<script type="text/javascript" src="../bootstrap-dropdown.js"></script>
+
+<script type="text/javascript" src="/js/member.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-family: 굴림, Gulim, 돋움, Dotum, AppleGothic, Sans-serif;
+}
+
+img, fieldset {
+    border: none;
+}
+
+hr, legend {
+    display：none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+}
+
+a:visited {
+}
+
+a:hover, a:active, a:focus {
+}
+
+html, body{
+height:100%;
+margin:0;
+padding:0;
+overflow-x:hidden; 
+overflow-y:hidden;
+}
+
+.containerx {min-height:100%;position:relative;}
+.containerx .header {background:#fff;height:80px;border-bottom:1px solid #000;}
+.containerx .content {padding-bottom:100px;}
+.containerx .footerx {position:absolute;bottom:0;left:0; background:#ebebeb;width:100%;height:34px;border-top:1px solid black;}
+
+
+	.content_wrap {
+		bottom: 32px;
+		left: 214px;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		position: absolute;
+		right: 0;
+		top: 81px;
+		border:0px solid red;
+	}
+
+	.content_body {
+
+		float:left;
+		bottom: 0px;
+		left: 0;
+		overflow-x: auto;
+		overflow-y: auto;
+		position: absolute;
+		right: 0;
+		top: 34px;
+		border:0px solid #ccc;
+		padding:10px 10px 0 15px;
+	}
+
+
+.left_area{ 
+	    position: absolute;		
+		top: 81px;
+		left: 0;
+		width:208px; 
+		border-right:1px solid #ccc;
+		background:#ebebeb;	
+	    bottom: 32px;
+		}
+
+
+.left{
+       position: relative;
+		width:208px; 
+		min-height:710px;
+		border:0px solid blue;
+		background:#fff;	
+		overflow-x: auto;
+		overflow-y: auto;
+		}
+
+	.svc_menu_area {
+		border-left: 0 none !important;
+		bottom: 31px;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 52px;
+		overflow-y: auto;
+	}
+
+
+	.navi_title {
+		background: none repeat scroll 0 0 #fff;
+		height: 22px;
+		min-width: 487px;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		width: 98%;
+		margin-top:10px;
+		text-align:right;
+		padding:2px 10px 0 0;
+	}
+
+	.tit{ font-size: 200%; }
+	.orderby{ float:right;margin-bottom:5px;}
+	.arti_cnt{ float:left;margin-bottom:0px;}
+
+</style>
+
+
+</head>
+<body >
+
+
+
+
+
+<div class="containerx">
+
+	<div class="header">
+		<img src="../images/tit_logo.png" width="140px" height="78px" border="0">
+	</div>
+	<div class="content">Content
+
+	<div class="left_area">
+	<div class="svc_menu_area">
+
+<?
+	include_once("../snb.php");
+?>
+		<!-- <div class="bs-docs-sidebar" style="margin-left:6px;">
+			<ul class="nav nav-list bs-docs-sidenav affix">
+				<li class="active"><a  href="#">메인관리</a></li>
+				<li class=""><a  href="#">WEB메인관리</a></li>
+				<li class=""><a  href="#">이벤트관리</a></li>
+				<li class=""><a  href="#">공지사항관리</a></li>
+				<li class=""><a  href="#">입점제휴관리</a></li>
+				<li class=""><a  href="#">입점제휴관리</a></li>
+				<li class=""><a  href="#">이용약관관리</a></li>
+				<li class=""><a  href="#">권한관리</a></li>
+				<li class=""><a  href="../logout.php">로그아웃(<?=$member['mb_name']?>)</a></li>
+			</ul>
+		</div>
+	 -->
+	
+
+	</div>
+
+
+</div>
+
+
+<div class="content_wrap">
+
+	<div class="navi_title">홈 > 웹관리자 > 메인관리 > web메인관리</div>
+
+	<div class="content_body">
+
+	<h1 class="tit"><?=$board[bo_subject]?> 저장</h1><br>
+	<form name="bbsForm" id="bbsForm"  action="./write_update.php"  onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="w" value="<?=$w;?>">
+		<input type="hidden" name="bo_table" value="<?=$bo_table?>">
+		<input type="hidden" name="wr_id" value="<?=$wr_id?>">
+		<table class="table  table-bordered table-condensed">
+			<col width="8%">
+			<col width="">		
+			<tr>
+			<tbody>
+
+					<tr>
+					<th>옵션</th>
+					<td><input type="checkbox" name="is_notice" id="is_notice" value="1" <?=$notice_checked?>/>공지
+					</td>
+					</tr>
+
+
+					<tr>
+					<th>제목</th>
+					<td>
+						<input type="text" name="wr_subject" value="<?=$write[wr_subject]?>" style="width:90%;">
+					</td>
+					</tr>
+					<tr>
+					<th>내용</th>
+					<td><div style="width:100%;height:300px;"><textarea name="wr_content" style="width:100%;height:300px;"><?=$write['wr_content']?></textarea>
+					</div>
+					</td>
+					</tr>					
+					<!-- <tr>
+					<th>첨부파일</th>
+					<td><input type="file" name="upfile" class="form-control" style="width:200px;" /></td>
+					</tr>
+ -->
+
+
+					<?php for ($i=0; $is_file && $i<$file_count; $i++) { ?>
+					<tr>
+						<th >파일<?php echo $i+1 ?></th>
+						<td>
+							<input type="file" name="bf_file[]" title="파일첨부 <?php echo $i+1 ?> : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" class="frm_file frm_input">
+							<?php if ($is_file_content) { ?>
+							<input type="text" name="bf_content[]" value="<?php echo ($w == 'u') ? $write[file][$i]['bf_content'] : ''; ?>" title="파일 설명을 입력해주세요." class="frm_file frm_input" size="50">
+							<?php } ?>
+							<?php if($w == 'u' && $write[file][$i]['file']) { ?>
+							<input type="checkbox" id="bf_file_del<?php echo $i ?>" name="bf_file_del[<?php echo $i;  ?>]" value="1"> <!-- <label for="bf_file_del<?php echo $i ?>"> --><?php echo $write[file][$i]['source'].'('.$write[file][$i]['size'].')';  ?> 파일 삭제<!-- </label> -->
+							<?php } ?>
+						</td>
+					</tr>
+					<?php } ?>
+
+
+
+			</tbody>	
+
+		</table>
+
+		<button type="button" onclick="location.href='./list.php?bo_table=<?=$bo_table?>'" class="btn btn-mini" style="height:27px;"><i class="icon-list-alt"></i> 목록으로</button>
+		<button type="submit" class="btn btn-small btn-primary"><i class="icon-check icon-white"></i> 저장하기</button>
+	</form>
+<script>
+	  function fwrite_submit(f){
+
+
+		if(f.bo_table.value==''){
+			alert('게시판 코드는 필수입니다.');
+            f.bo_table.focus();
+            return false;
+		}
+
+
+		if(f.wr_subject.value==''){
+			alert('게시판 제목은 필수입니다.');
+            f.wr_subject.focus();
+            return false;
+		}
+
+
+
+		if(f.wr_content.value==''){
+			alert('내용은 필수입니다.');
+            f.wr_content.focus();
+            return false;
+		}
+
+
+
+	//	if(!confirm("게시판 정보를 수정하시겠습니까?"))return false;
+
+
+	}
+	
+	
+
+	  
+
+
+
+</script>
+
+
+
+
+	</div><!-- content_body E-->
+
+
+</div><!-- content_wrap E-->
+
+	</div><!--content end-->
+	<div class="footerx">Footer</div>
+
+	<div><!--footerx end-->
+
+
+
+
+</body>
+</html>

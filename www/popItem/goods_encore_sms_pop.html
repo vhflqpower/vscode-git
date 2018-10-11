@@ -1,0 +1,394 @@
+<?
+include_once("./_common.php");
+
+
+	$gd_no = $_GET[gd_no];
+
+	$grid = 'cat1_list';
+	$grid_pager = 'p'.$grid;
+	$grid_div = 'div_'.$grid;
+	$ajax_url = './ajax_goods_encore_sms_data.php';
+	$ajax_edit_url = './income_proc_server.php';
+	$default_sort = 'en_id';
+	$sch_uri = '?gd_no='.$gd_no;
+
+
+	$now_path = '.';
+	$g4['title'] = "jqgrid sample";
+
+	include '../include/top_jqgrid.php';
+	include_once("./jquery_lib.php");
+
+
+?>
+<script type="text/javascript" src="./grid_util.js"></script>
+
+
+<script language="JavaScript">
+
+var isMemberEdit = false;
+var $j = jQuery; //전역 jQuery 네이밍 변경
+
+/* ---------------------------------------------------------- */
+var $grid = false; //전역 그리드 변수
+var $grid_div = false; //전역 그리드페이저 변수
+ 
+ $j(document).ready(function(){
+
+	// 그리드 검색
+	$(".pSearch" ).bind('click',function() { 
+		search('#searchForm');
+	
+	});
+
+	 $grid = $j("#<?=$grid?>");
+	 $grid_div = $j("#<?=$grid_div?>");
+
+
+ $grid.jqGrid({
+	autowidth:false,
+	autoheight:false, 
+	width:790,
+	height:230,
+	
+	datatype: "json",
+	caption:"<font size=2px>업체정보</font>",
+   	url:'<?=$ajax_url?><?=$sch_uri?>',
+	editurl: "<?=$ajax_edit_url?>",
+   	pager: '#<?=$grid_pager?>',
+   	sortname: '<?=$default_sort?>',	
+	colNames:['NO','상품ID','회원ID','전화번호','SMS발송이력','sms전송'],
+	colModel:[
+		{name:'en_id',index:'en_id', width:60, align:"center", editable:true,hidden:true, viewable: false, hidedlg:false,formoptions:{ rowpos:1 }},
+		{name:'gd_id',index:'gd_id', width:114,align:"center",editable:true,hidden:true,editoptions:{readonly:false,size:10},formoptions:{ rowpos:2 }},	
+		
+		{name:'mb_id',index:'mb_id', width:114,align:"center",editable:true,editoptions:{readonly:false,size:10},formoptions:{ rowpos:2 }},	
+		{name:'mb_hp',index:'mb_hp', width:140,align:"center",editable:true,editoptions:{readonly:false,size:10},formoptions:{ rowpos:3 }},	
+		{name:'senddate',index:'senddate', width:140,align:"center",editable:true,editoptions:{readonly:false,size:10},formoptions:{ rowpos:3 }},	
+		{name:'act',index:'act', width:120, align:"center", editable:false, viewable: true, hidedlg:true},
+		],
+
+/* edittype:'textarea', */
+
+	shrinkToFit: false,
+	sortable: true,
+	multiselect: true,
+   	rowNum:50,
+   	rowList:[10,15,30,50,100],
+    viewrecords: true,
+    sortorder: "asc"
+
+
+	,gridComplete: function(){
+		var ids = $grid.jqGrid('getDataIDs');
+		var cl, be, be2;
+		var daa_url = 'http://www.tagintag.com/data/category/';
+
+		for(var i=0; i < ids.length;i++){
+			cl = ids[i];
+
+		var	en_id = $grid.jqGrid("getRowData", cl).en_id;	
+		var mb_hp = $grid.jqGrid("getRowData", cl).mb_hp;	
+		var	gd_id = $grid.jqGrid("getRowData", cl).gd_id;	
+		var	senddate = $grid.jqGrid("getRowData", cl).senddate;	
+
+
+		if(senddate == '0000-00-00 00:00:00'){
+			be = "<a href='#' onclick=\"sms_one_send('"+en_id+"','"+mb_hp+"','"+gd_id+"')\"><input style='height:22px;width:80px;' type='button' value='개별전송' ></a>"; 
+		}else{
+			be = ""; 
+
+		}
+//		be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"$grid.editGridRow('"+cl+"');\"  />"; 
+//			$grid.jqGrid('setRowData',ids[i],{act:be});
+			
+
+			
+			be2 = $grid.getCell(cl,'cat1_img')
+			be2 = be2 && "<img src='"+daa_url+be2+"' width='30' height='30'>"; 		
+			$grid.jqGrid('setRowData',ids[i],{act:be,icon_view:be2});
+
+		}
+	}
+
+	,onSelectRow: function(){
+
+			var rowid, gubun_cd1;			
+			rowid  = $grid.jqGrid("getGridParam", "selrow");	
+			c1_code = $grid.jqGrid("getRowData", rowid).cat1;
+			ca_no = $grid.jqGrid("getRowData", rowid).ca_no;
+
+		//	getCat1(ca_no)
+			//	$grid2.jqGrid('setGridParam',{url:"<?=$ajax_url2?>?cat1="+c1_code,page:1});
+			//	$grid2.jqGrid('setCaption',"대메뉴ID: "+ca_no)
+			//	.trigger('reloadGrid');
+			//	$grid3.clearGridData();
+				
+			//	cat2Reset();
+			//	cat3Reset();
+	}
+
+
+
+});
+
+
+$grid.jqGrid('navGrid',"#<?=$grid_pager?>",{edit:false,add:true,del:false});
+
+//$("#<?=$grid?>").setSelection($(10000);
+
+
+}); 
+
+
+
+//컬럼 보이기 감추기
+function columnChooser() {
+	$grid.jqGrid('columnChooser');
+}
+
+//컬럼 추가
+/*
+function addData() {
+	$grid.editGridRow('new');
+}
+*/
+function addData() {
+ $grid.editGridRow('new', {reloadAfterSubmit:true} );
+}
+
+
+function  parentsend(rowid,company){
+		// var row_id = $("#row_id").val();
+		//rowid  = $grid.jqGrid("getGridParam", "selrow");		
+		//no_car = $grid.jqGrid("getRowData", rowid).no_car;
+		//alert(rowid);
+		$("#co_id", opener.document).val(rowid);
+		$("#co_name", opener.document).val(company);
+
+			window.close();
+
+}
+
+
+function  sms_one_send(rowid,mb_hp,gd_id){
+
+		var postData;
+		var rows = Object();	
+  
+		if(!rowid) {
+			alert('존재하지 않은 주문입니다.');
+			return;
+		}
+
+		var exe = "Y";
+
+
+		var rows= {
+		//	oper : oper,
+			gd_id : gd_id,
+			en_id : rowid,
+			mb_hp : mb_hp,
+			exe : exe,
+
+
+		};
+		
+		var postData = $.param(rows);
+		var url = './ajax_encore_sms_send_server.php'//url 수정;
+		var msg = '상품 소식 문자를  정말 발송하시겠습니까?';
+
+		if(confirm(msg)) {
+			$.ajax({
+				url:url,
+				data: postData,
+				type:'post',
+				dataType:'json',
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				cache:false,
+				success:function(response) {
+					console.log( "=====> response: "+ JSON.stringify(response) );
+					var success = (response.flag == 'SUCC');
+					var msg = response.msg;
+					//var new_id = response.id;
+					//데이타 로딩
+					if(success) {
+						alert('정상 발송 처리 되었습니다.');
+						search('#searchForm');
+						//returnConfirm()
+					}else{
+						alert(msg);
+					}
+
+				}
+			});
+		}
+		return;
+
+}
+
+
+
+
+
+
+// 다중문자 전송
+function sms_mult_send_submit() {
+ 
+//	var gr = $grid.jqGrid('getGridParam','selrow');
+ 	var ids = $grid.jqGrid('getGridParam','selarrrow');
+	var role_cd = $("#roleCode").val()
+
+
+
+	//rowid  = $grid2.jqGrid("getGridParam", "selrow");
+	//console.log(gr);
+	
+	if( ids.length < 1 ) {
+		alert('발송할  항목을 선택해주세요');
+		return;
+	}
+
+		var exe = "Y";
+
+	var rows = Object(); // 필수
+
+
+	var postData; // 필수
+
+	var rows= {        //필수
+		ids : ids,
+		oper : 'send',
+		exe : exe,
+
+	};
+
+	var postData = $.param(rows);   //필수
+
+	 if(confirm("선택한 번호롤. 정말 전송하시겠습니까?"))
+	 {
+
+	  }else{
+			return;
+		} 
+
+	var url = './ajax_encore_sms_multsend_server.php';
+
+
+		$.ajax({
+			url:url,
+			data: postData,
+			type:'post',
+			dataType:'json',
+			cache:false,
+			success:function(response) {
+				var success = (response.flag == 'succ');
+				var message = response.message;
+				var new_id = response.id;
+
+					//데이타 로딩
+					if(success) {
+						alert('정상 발송 처리 되었습니다.');
+						search('#searchForm');
+						//returnConfirm()
+					}else{
+						alert(msg);
+					}
+
+
+				// $grid.trigger('reloadGrid');		
+
+			}
+		}); // $.ajax({
+	
+}
+
+
+
+
+
+
+
+</script>
+
+
+	<script type="text/javascript">
+
+	</script> 
+
+
+<style>
+	.tit{ font-size: 200%; }
+</style>
+</head>
+<body>
+
+		<h1 class="tit">앵콜요청내역</h1><br>
+	
+		<div style="float:left;width:800px;border:0px solid blue;margin-left:5px;">  
+				<form name="searchForm" id="searchForm" class="searchForm">
+				<!-- <input type="button" value="search" class="pSearch"> -->
+				<div style="float:left;width:800px;height:330px;border:0px solid blue;">
+				<input style='height:22px;width:80px;' type='button' value='선택발송' onclick="sms_mult_send_submit()">
+				<input type="radio" name="sended" value="" checked>전체발송
+				<input type="radio" name="sended" value="1">미발송회원
+				<input type="radio" name="sended" value="2">발송회원
+				<input type="hidden" name="gd_no" value="<?=$gd_no?>">
+				<input style='height:22px;width:80px;' type='button' value='조회' onclick="search('#searchForm');" class="pSearch">
+				<div id="<?=$grid_div?>">
+						<table id="<?=$grid?>" class="grid_font"></table>
+						<div id="<?=$grid_pager?>"></div>
+						</div></form>
+		<br />
+		</form>
+
+		<script>
+			
+		function cat1_sort_pop(){
+			window.open("./code_sort.php","frm","width=300,height=360,top=0,left=0")
+		}
+		</script>
+
+		</div>
+	</div>
+			</form>
+
+
+	<script type="text/javascript">
+
+// # 코드개별데이터로딩------------------------------------------------#
+// ajax_encore_sms_multsend_server.php
+
+
+
+
+
+
+function search(frm_id,grid_no) {
+
+	frm_id = frm_id || '.searchForm';
+	grid_no = grid_no || 1;
+	$grid_local = getGrid(grid_no);
+	var sch_params = $(frm_id + ' :input').serialize();
+	var url = $grid.getGridParam('url');
+	url = url.split('?')[0];
+	$grid_local.setGridParam({url : url + '?' + sch_params}).trigger("reloadGrid");
+
+}
+
+function getGrid(no) {
+	no = no || 1;
+	var idx = Number(no) - 1;
+	if(!idx || idx < 0) idx = 0;
+	return $(".ui-jqgrid-btable").eq(idx);
+}
+
+	
+	</script>
+
+
+</body>
+</html>
+
+
+

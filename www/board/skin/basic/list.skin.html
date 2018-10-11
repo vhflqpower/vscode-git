@@ -1,0 +1,385 @@
+<?
+	include_once("./_common.php");
+
+
+
+?>
+
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TAGINTAG 통합관리자</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"  media="all" />
+	<link rel="stylesheet" type="text/css" href="../css/doc.css"  media="all" />
+	<link rel="stylesheet" type="text/css" href="../css/common.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="../main.css" media="all" />
+	<script type="text/javascript" src="../jquery.js"></script>
+	<script type="text/javascript" src="../login.js"></script>
+	<script type="text/javascript" src="../bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/js/member.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-family: 굴림, Gulim, 돋움, Dotum, AppleGothic, Sans-serif;
+}
+
+img, fieldset {
+    border: none;
+}
+
+hr, legend {
+    display：none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+}
+
+a:visited {
+}
+
+a:hover, a:active, a:focus {
+}
+
+html, body{
+height:100%;
+margin:0;
+padding:0;
+overflow-x:hidden; 
+overflow-y:hidden;
+}
+
+.containerx {min-height:100%;position:relative;}
+.containerx .header {background:#fff;height:80px;border-bottom:1px solid #000;}
+.containerx .content {padding-bottom:100px;}
+.containerx .footerx {position:absolute;bottom:0;left:0; background:#ebebeb;width:100%;height:34px;border-top:1px solid black;}
+
+
+	.content_wrap {
+		bottom: 32px;
+		left: 214px;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		position: absolute;
+		right: 0;
+		top: 81px;
+		border:0px solid red;
+	}
+
+	.content_body {
+
+		float:left;
+		bottom: 0px;
+		left: 0;
+		overflow-x: auto;
+		overflow-y: auto;
+		position: absolute;
+		right: 0;
+		top: 34px;
+		border:0px solid #ccc;
+		padding:10px 10px 0 15px;
+	}
+
+
+.left_area{ 
+	    position: absolute;		
+		top: 81px;
+		left: 0;
+		width:208px; 
+		border-right:1px solid #ccc;
+		background:#ebebeb;	
+	    bottom: 32px;
+		}
+
+
+.left{
+       position: relative;
+		width:208px; 
+		min-height:710px;
+		border:0px solid blue;
+		background:#fff;	
+		overflow-x: auto;
+		overflow-y: auto;
+		}
+
+	.svc_menu_area {
+		border-left: 0 none !important;
+		bottom: 31px;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 52px;
+		overflow-y: auto;
+	}
+
+
+	.navi_title {
+		background: none repeat scroll 0 0 #fff;
+		height: 22px;
+		min-width: 487px;
+		overflow: hidden;
+		position: relative;
+		white-space: nowrap;
+		width: 98%;
+		margin-top:10px;
+		text-align:right;
+		padding:2px 10px 0 0;
+	}
+
+	.tit{ font-size: 200%; }
+	.orderby{ float:right;margin-bottom:5px;}
+	.arti_cnt{ float:left;margin-bottom:0px;}
+</style>
+
+
+</head>
+<body >
+
+
+
+
+
+<div class="containerx">
+
+	<div class="header">
+		<img src="../images/tit_logo.png" width="140px" height="78px" border="0">
+	</div>
+	<div class="content">Content
+
+	<div class="left_area">
+
+	<div class="svc_menu_area">
+
+
+<?
+	include_once("../snb.php");
+?>
+		<!-- <div class="bs-docs-sidebar" style="margin-left:6px;">
+			<ul class="nav nav-list bs-docs-sidenav affix">
+				<li class="active"><a  href="#">메인관리</a></li>
+				<li class=""><a  href="#">WEB메인관리</a></li>
+				<li class=""><a  href="#">이벤트관리</a></li>
+				<li class=""><a  href="#">공지사항관리</a></li>
+				<li class=""><a  href="#">입점제휴관리</a></li>
+				<li class=""><a  href="#">입점제휴관리</a></li>
+				<li class=""><a  href="#">이용약관관리</a></li>
+				<li class=""><a  href="#">권한관리</a></li>
+				<li class=""><a  href="../logout.php">로그아웃(<?=$member['mb_name']?>)</a></li>
+			</ul>
+		</div>
+	 -->
+	
+</div>
+
+	</div>
+
+
+<div class="content_wrap">
+
+	<div class="navi_title">홈 > 웹관리자 > 메인관리 > web메인관리</div>
+
+	<div class="content_body">
+
+	<h1 class="tit"><?=$board[bo_subject]?> 목록</h1><br>
+
+	<div class="arti_cnt">
+		총 <strong><?=$total_count?></strong>건이 검색되었습니다.
+	</div>
+
+
+	<div class="orderby">
+			<select name="search_field" id="search_field" style="width:100px;">
+			<option  value="mo_memo">활성</option>
+			<option  value="mo_memo">비활성</option>
+			</select>
+
+			<select name="search_field" id="search_field" style="width:100px;">
+			<option  value="mo_memo">20개씩보기</option>
+			</select>
+	</div>
+
+
+    <form name="fboardlist" id="fboardlist" action=""  method="post">
+    <input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+    <input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+    <input type="hidden" name="stx" value="<?php echo $stx ?>">
+    <input type="hidden" name="spt" value="<?php echo $spt ?>">
+    <input type="hidden" name="sca" value="<?php echo $sca ?>">
+    <input type="hidden" name="sst" value="<?php echo $sst ?>">
+    <input type="hidden" name="sod" value="<?php echo $sod ?>">
+    <input type="hidden" name="page" value="<?php echo $page ?>">
+    <input type="hidden" name="sw" value="">
+
+
+		<table class="table table-hover table-bordered table-condensed">
+			<col width="4%">
+			<col width="5%">
+			<col width="">
+			<col width="10%">	
+			<col width="15%">
+			<col width="5%">
+
+			<tr>
+			<thead>
+				<th><input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);"></th>
+				<th>NO</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
+			</tr>
+			</thead>	
+
+
+			<tbody>
+					<? 
+					for ($i=0; $i<count($list); $i++) { 
+						$bg = $i%2 ? 0 : 1;
+					?>
+							<tr>
+							<td><div align='center'><input type="checkbox" name="chk_wr_id[]" value="<?php echo $list[$i]['wr_id'] ?>" id="chk_wr_id_<?php echo $i ?>"></div></td>
+							<td><div align='center'><?//=$list[$i][no]?>
+								<?php
+								if ($list[$i]['is_notice']) // 공지사항
+									echo '<strong>공지</strong>';
+								else if ($wr_id == $list[$i]['wr_id'])
+									echo "<span class=\"bo_current\">열람중</span>";
+								else
+									echo $list[$i]['wr_id'];
+								 ?>
+							</div></td>
+							<td>
+							<?=$list[$i][icon_reply];?>
+							<a href="./view.php?bo_table=<?=$bo_table?>&wr_id=<?=$list[$i][wr_id]?>"><?=$list[$i][subject]?></a>
+						   <?php if ($list[$i]['comment_cnt']) { ?><span style="color:#0000ff;">(<?php echo $list[$i]['comment_cnt']; ?>)</span><?php } ?>
+							
+							
+								<?php
+									// if ($list[$i]['link']['count']) { echo '['.$list[$i]['link']['count']}.']'; }
+									// if ($list[$i]['file']['count']) { echo '<'.$list[$i]['file']['count'].'>'; }
+
+									if (isset($list[$i]['icon_new'])) echo $list[$i]['icon_new'];
+									if (isset($list[$i]['icon_hot'])) echo $list[$i]['icon_hot'];
+									if (isset($list[$i]['icon_file'])) echo $list[$i]['icon_file'];
+									if (isset($list[$i]['icon_link'])) echo $list[$i]['icon_link'];
+									if (isset($list[$i]['icon_secret'])) echo $list[$i]['icon_secret'];
+								?>				
+							</td>
+							<td><div align='center'><?php echo $list[$i]['name'] ?></div></td>
+							<td><div align='center'><?php echo $list[$i]['datetime2'] ?></div></td>
+							<td><div align='center'><?php echo $list[$i]['wr_hit'] ?></div></td>
+						</tr>
+
+			<?
+				
+					$num++;	} 
+
+					if($num < 1){ echo "<tr><td colspan=5 style='text-align:center'>NO DATA</td></tr>"; }
+			 ?>  
+			</tbody>
+		</table></form>
+
+	<div style="border:0px solid black;">
+		<div style="float:left;">
+		<button type="button" onclick="delete_sel_submit();"  class="btn btn-small btn-danger"><i class="icon-check icon-white"></i>선택삭제</button>
+			<button class="btn btn-mini btn-primary" id="searchBtn"  type="button" onclick="location.href='./write.php?bo_table=<?=$board[bo_table]?>'" style="height:26px;"><i class="icon-white icon-pencil"></i>글쓰기</button>
+	</div>
+
+
+		<div style="float:right;">
+				<form name="searchForm" id="searchForm" class="searchForm">
+					<input type="hidden" name="bo_table" id="bo_table" value="<?=$bo_table;?>" />
+						<select name="search_field" id="search_field" style="width:100px;height:24px;">
+						<option  value="wr_subject">제목</option>
+						</select>
+						  <input class="span2"  name="stx" id="stx" type="text" value="" style="width:180px;">
+					<button class="btn btn-mini" id="searchBtn"  type="button" style="height:24px;"><i class="icon-search"></i>조회하기</button>				 
+				</form>
+		</div>
+	</div>
+
+
+	<!-- [<?echo $write_pages;?>] -->
+ <?echo $write_pages;?>
+		<!-- <div class="pagination pagination-centered">
+			 <ul>
+				<li class="active" ><a href="/member/index.php?&amp;page=1">1</a></li>
+				<li class="" ><a href="/member/index.php?&amp;page=1">2</a></li>
+				<li><a class="next" href="/member/index.php?&amp;page=11">&gt;</a></li>
+				<li><a class="end" href="/member/index.php?&amp;page=422" title="마지막">&gt;&gt;</a></li>
+			</ul> 
+		 </div>
+ -->
+
+<script>
+function all_checked(sw) {
+    var f = document.fboardlist;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]")
+            f.elements[i].checked = sw;
+    }
+}
+
+function delete_sel_submit() {
+
+    var f = document.fboardlist;
+
+    var chk_count = 0;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]" && f.elements[i].checked)
+            chk_count++;
+    }
+
+    if (!chk_count) {
+        alert("삭제 할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+/*
+    if(document.pressed == "선택복사") {
+        select_copy("copy");
+        return;
+    }
+
+    if(document.pressed == "선택이동") {
+        select_copy("move");
+        return;
+    }
+*/
+
+
+
+ if(confirm("선택된 데이터를 정말 삭제하시겠습니까?")){
+	 document.fboardlist.action = './delete_sel.php';
+	 document.fboardlist.submit();
+  }else{ return false; } 
+
+
+}
+</script>
+
+
+	</div><!-- content_body E-->
+
+
+</div><!-- content_wrap E-->
+
+	</div><!--content end-->
+	<div class="footerx">Footer</div>
+
+	<div><!--footerx end-->
+
+
+
+
+</body>
+</html>

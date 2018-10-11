@@ -1,0 +1,65 @@
+﻿
+/* DATE 선택 */
+.ui-datepicker { font:12px dotum; }
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 70px;}
+.ui-datepicker-trigger { margin:0 0 -5px 2px; }
+
+
+
+/* 업체정보 */
+.write_head { height:32px; text-align:center; color:#000; background:#ebebeb; font-size:12px;border-bottom:1px solid #ccc;}
+.write_form { height:30px;  padding-left:5px;  }
+.field { border:1px solid #ccc; }
+
+
+/* 액자정보 */
+.sub_head { height:22px; text-align:center; color:#000; background:#ebebeb; font-size:12px;  }
+.sub_td { height:22px; text-align:center; color:#000; background:#ffffff; font-size:12px;  }
+
+
+
+.board_top { clear:both; }
+.board_list { clear:both; width:100%; table-layout:fixed; margin:5px 0 0 0; }
+.board_list th { font-weight:bold; font-size:11px; } 
+.board_list th { background:url(<?=$g4['path']?>/crm/member/img/title_bg.gif) repeat-x; } 
+.board_list th { white-space:nowrap; height:34px; overflow:hidden; text-align:center; } 
+.board_list th { border-top:1px solid #ddd; border-bottom:1px solid #ddd; } 
+.board_list tr.bg0 { background-color:#fafafa; } 
+.board_list tr.bg1 { background-color:#ffffff; } 
+.board_list td { padding:.5em; }
+.board_list td { border-bottom:1px solid #ddd; } 
+.board_list td.num { color:#999999; text-align:center; }
+.board_list td.checkbox { text-align:center; }
+.board_list td.subject { overflow:hidden; }
+.board_list td.name { padding:0 0 0 10px;text-align:center;  }
+.board_list td.datetime { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+.board_list td.hit { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+.board_list td.good { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+.board_list td.nogood { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+.board_list .notice { font-weight:normal; }
+.board_list .current { font:bold 11px tahoma; color:#E15916; }
+.board_list .comment { font-family:Tahoma; font-size:10px; color:#EE5A00; }
+.board_button { clear:both; margin:10px 0 0 0; }
+.board_page { clear:both; text-align:center; margin:3px 15px 0 0; }
+.board_page a:link { color:#777; }
+.board_search { text-align:center; margin:10px 0 0 0; }
+.board_search .stx { height:21px; border:1px solid #9A9A9A; border-right:1px solid #D8D8D8; border-bottom:1px solid #D8D8D8; }
+
+
+
+/* 프로모션 정보 */
+.tbl_type,.tbl_type th,.tbl_type td{border:0}
+.tbl_type{width:100%;border-bottom:1px solid #dddee2;font-family:'돋움',dotum;font-size:12px;table-layout:fixed}
+.tbl_type caption{display:none}
+.tbl_type th{padding:5px 0 5px 20px;border-top:1px solid #dddee2;background:#f1f1f3;color:#666;font-weight:bold;text-align:left;vertical-align:top}
+.tbl_type td{padding:3px 5px 3px 12px;border-top:1px solid #dddee2;line-height:16px;vertical-align:top}
+/* 프로모션 정보 */
+
+
+
+
+
+
+
+

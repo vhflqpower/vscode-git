@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+ -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+
+
+</head>
+<body>
+
+<!-- <div data-role="page">
+  <div data-role="header">
+    <h1>Welcome To My Homepage</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>I Am Now A Mobile Developer!!</p>
+  </div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div>  -->
+
+    <section id="swatch-mixed" data-role="page" data-theme="c">
+        <header data-role="header" data-theme="b"><h1>jQuery Mobile</h1></header>
+        <div class="content" data-role="content">
+            <h3>Mixing Swatches</h3>
+            <form action="formprocessor.php" method="post">
+                <div data-role="fieldcontain">
+                    <label for="select-restaurants">Select Your Restaurants:</label>
+                    <select id="select-restaurants" name="select-restaurants" data-native-menu="false" multiple="multiple" data-theme="e">
+                        <option value="choose" data-placeholder="true">Choose...</option>
+                        <optgroup label="French">
+                            <option value="lecentral">Le Central</option>
+                            <option value="bistrovandome">Bistro Vandome</option>
+                            <option value="antoines">Antoine's</option>
+                        </optgroup>
+                        <optgroup label="Cajun">
+                            <option value="bayoubobs">Bayou Bob's</option>
+                            <option value="pappadeaux" disabled="disabled">Pappadeaux</option>
+                            <option value="luciles">Lucile's</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </form>
+            <div data-role="controlgroup" data-type="horizontal">
+                <a href="#" data-role="button" data-theme="a">Yes</a>
+                <a href="#" data-role="button" data-theme="a">No</a>
+                <a href="#" data-role="button" data-theme="a">Cancel</a>
+            </div>
+        </div>
+
+<p>
+	<a href="./example1.html">example1</a>
+</p>
+
+        <footer data-role="footer"><h1>O'Reilly</h1></footer>
+    </section>
+
+
+</body>
+</html>

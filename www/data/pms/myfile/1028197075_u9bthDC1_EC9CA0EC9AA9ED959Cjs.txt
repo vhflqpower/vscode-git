@@ -1,0 +1,210 @@
+function SearchCnt(g_idx) {
+
+	var f = document.form1;
+
+	$.post( "<?=$_SERVER["PHP_SELF"]?>", $( f ).serialize() ).done(function( data ) {
+		if(data=="err")
+			alert("오류가 발생했습니다. 발송 조건을 확인해 주세요.");
+		else{
+			$("#ResultCnt_"+g_idx).val(data);
+			$("#ResultView_"+g_idx).show();
+		}
+	});
+}
+
+
+	$("#btn_xls_upload").on("click", function(){
+		cw=screen.availWidth;     //화면 넓이
+		ch=screen.availHeight;    //화면 높이
+
+		sw=800;    //띄울 창의 넓이
+		sh=350;    //띄울 창의 높이
+		ml=(cw-sw)/2;        //가운데 띄우기위한 창의 x위치
+		mt=(ch-sh)/2;         //가운데 띄우기위한 창의 y위치
+		 window.open('./excel_upload_form.html','popup_window','width='+sw+',height='+sh+',top='+mt+',left='+ml+',resizable=no,scrollbars=yes');
+	});
+
+
+	$(".btn_cancel_push_reserve").click(function(){
+		var no = $(this).data('no');
+		var obj = $(this)
+		$.ajax({ 
+			type: "POST", 
+			url: "./market_app_push_indb.php", 
+			data: "mode=cancel_reserve&no=" + no,
+			dataType:"html",
+			success: function(result) {
+				if(result == 'T'){
+					alert("정상적으로 취소 되었습니다.");
+					$(obj).parent().html("ㅡ");
+				}else{
+					alert("푸쉬 예약발송취소가 실패했습니다.");
+				}
+			},
+			error: function(result) {
+				alert("푸쉬 예약발송취소를 실패했습니다."); 
+			}
+		});
+	});
+
+
+echo "<script>alert('적립금 처리가 완료되었습니다.');opener.location.reload();window.close();</script>";
+
+
+jQuery.ajax({
+     type: 'GET',
+     contentType: 'text/html; charset=utf-8', 
+     url: './cate_list_make.php',
+     data:{'brandno':brandno},
+     dataType: "html",
+     success: function(data){
+       jQuery('#cateidx').append(data);    
+     },
+     error:function(request,error){
+      alert("message:"+request.responseText);
+     }
+}); 
+
+
+
+
+		// 숨김처리
+		$(document).on('click', '.popHide', function(){
+			var result ="";
+			var friend_id = $(this).parent().parent().parent().find("input[name='friend_id']").val();
+			var hide = $(this).parent().parent().parent().find("input[name='friend_hide']").val();
+			$.ajax({
+				type	: "GET",
+				url	: "./wishlist.ajax.php",
+				data	: { mode : 'hide', friend : friend_id, hide : hide },
+			}).done(function ( result ) {
+				if(result == 'SUCC'){
+
+					reloadList('U');
+
+					if(hide == 'Y'){
+						$(".popHide").html('숨김 등록');
+						$("input[name='friend_hide']").val("N");
+					}else{
+						$(".popHide").html('숨김 해지');
+						$("input[name='friend_hide']").val("Y");
+					}
+
+				}else{
+					 alert("숨김 관리가 실패했습니다.");  정상동작하나 실패로 떠서 실패도성고처리함 20180823
+
+
+
+				
+				}
+			});
+		});
+
+
+
+		// 상세정보
+		$(document).on('click', '.btnDetailView', function(){
+			var friend_id = $(this).parent().parent().parent().find("input[name='friend_id']").val();
+			location.href = "/app/wish_friend_detail.php?f_id="+friend_id;
+		});
+
+
+
+$  
+ .ajax({
+  type : "POST" //"POST", "GET"
+  ,
+  async : true //true(비동기화), false(동기화)
+  ,
+  url : "" //Request URL
+  ,
+  dataType : "json" //전송받을 데이터의 타입 
+  //"xml", "html", "script", "json" 등 지정 가능
+  //미지정시 자동 판단     
+ 
+  ,
+ 
+    timeout : 30000   //제한시간 지정
+  ,
+ 
+    cache : false     //true, false
+  ,
+  data : {itecd:itecd, operyy:operyy, opermmly:opermmly}
+ 
+ //   data : $("#Form").serialize()
+  ,
+  contentType : "application/x-www-form-urlencoded;charset=UTF-8"
+ 
+  ,
+  success : function(result) {
+   //통신 성공시 처리
+  }  
+ 
+  , 
+ 
+   error : function(request, status, error) {
+                              //통신 에러 발생시 처리
+                              alert("code : " + request.status + "\r\nmessage : " + request.reponseText);
+              }
+ 
+  , 
+ 
+   beforeSend: function() {
+                              //통신을 시작할때 처리
+                             $('#ajax_indicator').show().fadeIn('fast'); 
+              }
+  , 
+ 
+   complete: function() {
+                             //통신이 완료된 후 처리
+                             $('#ajax_indicator').fadeOut();
+  }
+ });
+
+
+출처: http://cofs.tistory.com/26 [CofS]
+
+
+	$(function  () {
+		$(".btnIgnoreOff").click(function(){
+			var obj = $(this).parent().parent();
+			var friend_id = $(this).data('friend');
+			$.ajax({
+				type	: "GET", 
+				url	: "./setting.ajax.php", 
+				data	: { mode : 'update_manager', flag : 'ignore', friend : friend_id }
+			}).done(function ( result ) {
+				if(result.trim() == 'SUCC'){
+					$(obj).remove();
+
+					// 전부 해지가 되면 숨김처리 없다는 문구 출력
+					if($(".lst-tmbline-one li").length == 0){
+						var innerHTML = "";
+						innerHTML += "	<li class='media'>";
+						innerHTML += "		<div class = 'tmb-text' style = 'margin-left:0px;'>";
+						innerHTML += "			<div class='noData text-center'>차단 처리된 친구가 없습니다.</div>";
+						innerHTML += "		</div>";
+						innerHTML += "	</li>";
+						$(".lst-tmbline-one").html(innerHTML);
+					}
+				}else{
+					alert("숨김해제가 실패했습니다.");
+				}
+			});
+		})
+	});
+
+
+
+
+
+
+
+
+
+select *,to_char(regdt,'YYYY-MM-DD') as rdt from tbl_timesale_list where sdate >= '2018-08-24' AND edate <= '2018-08-24' order by sno desc limit 7
+
+
+select id, push_token, push_token_ios from tblmember where substring(birth,6,10)  >= '{$sdate}' AND substring(birth,6,10) <= '{$edate}' 
+
+
